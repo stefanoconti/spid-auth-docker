@@ -71,6 +71,9 @@ SSLStaplingCache shmcb:/var/run/ocsp(128000)
 #DocumentRoot "/var/www/html"
 #ServerName www.example.com:443
 
+ServerName %SERVER_NAME%:443
+UseCanonicalName On
+
 # Use separate log files for the SSL virtual host; note that LogLevel
 # is not inherited from httpd.conf.
 ErrorLog |/usr/bin/cat

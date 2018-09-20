@@ -37,6 +37,12 @@ _MODE=${MODE:-'dev'}
 ## HTTPD configuration
 ##
 
+pushd /etc/httpd/conf.d
+    sed \
+        -e "s|%SERVER_NAME%|${_SERVER_NAME}|g" \
+        ssl.conf.tpl > ssl.conf
+popd
+
 #
 # set httpd envvars
 #
