@@ -15,20 +15,19 @@
 # Licence for the specific language governing permissions and limitations
 # under the Licence.
 
-FROM centos:7
+FROM centos/httpd-24-centos7
 
 LABEL maintainer="AgID - Agenzia per l'Italia Digitale" \
       maintainer.email="spid.tech@agid.gov.it"
+
+USER root
 
 # add Shibboleth repo
 COPY ./etc/yum.repos.d/shibboleth.repo /etc/yum.repos.d/
 
 # install dependencies
 RUN yum install -y \
-        httpd \
         java-1.8.0-openjdk-headless \
-        mod_php \
-        mod_ssl \
         shibboleth.x86_64 \
         unzip \
     && yum -y clean all
@@ -65,6 +64,22 @@ RUN chmod +x \
     /usr/local/bin/docker-bootstrap.sh \
     /usr/local/bin/metagen.sh
 
+
+RUN chmod -R g+rx /opt/xmlsectool \
+    && chmod -R g+rw /var/www/html \ 
+    && chmod -R g+rw /opt/shibboleth-sp \
+    && chmod -R g+rw /opt/spid-metadata \
+    && chmod -R g+rw /etc/shibboleth \
+    && chmod -R g+rw /etc/httpd/conf.d \
+    && chmod -R g+rw /etc/pki/tls/private \
+    && chmod -R g+rw /etc/pki/tls/certs \
+    && chmod -R a+rw /var/run/shibboleth \
+    && chmod -R a+rw /var/log/shibboleth \
+    && chmod g+rx /usr/local/bin/docker-bootstrap.sh \
+    && chmod g+rx /usr/local/bin/metagen.sh
+
+
+USER default
+
 # run it
-EXPOSE 80 443
 CMD ["docker-bootstrap.sh"]

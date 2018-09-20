@@ -188,4 +188,4 @@ fi
 #
 # run httpd
 #
-exec apachectl -DFOREGROUND
+/usr/bin/run-httpd
