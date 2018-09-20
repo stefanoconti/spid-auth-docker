@@ -73,6 +73,8 @@ RUN chmod -R g+rx /opt/xmlsectool \
     && chmod -R g+rw /etc/httpd/conf.d \
     && chmod -R g+rw /etc/pki/tls/private \
     && chmod -R g+rw /etc/pki/tls/certs \
+    && chown -R default:root /var/run/shibboleth \
+    && chown -R default:root /var/log/shibboleth \
     && chmod -R a+rw /var/run/shibboleth \
     && chmod -R a+rw /var/log/shibboleth \
     && chmod g+rx /usr/local/bin/docker-bootstrap.sh \
