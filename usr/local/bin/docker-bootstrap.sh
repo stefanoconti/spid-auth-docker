@@ -71,8 +71,8 @@ popd
 #
 # setup TLS certificates
 #
-TLS_CERT="/etc/pki/tls/certs/server.crt"
-TLS_KEY="/etc/pki/tls/private/server.key"
+TLS_CERT="/etc/pki/tls/httpd/server.crt"
+TLS_KEY="/etc/pki/tls/httpd/server.key"
 if [ ! -f ${TLS_CERT} ] && [ ! -f ${TLS_KEY} ]; then
     openssl req -x509 -nodes -days 3650 \
         -newkey rsa:2048 -keyout ${TLS_KEY} \

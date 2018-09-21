@@ -64,15 +64,12 @@ RUN chmod +x \
     /usr/local/bin/docker-bootstrap.sh \
     /usr/local/bin/metagen.sh
 
-
 RUN chmod -R g+rx /opt/xmlsectool \
     && chmod -R g+rw /var/www/html \ 
     && chmod -R g+rw /opt/shibboleth-sp \
     && chmod -R g+rw /opt/spid-metadata \
     && chmod -R g+rw /etc/shibboleth \
     && chmod -R g+rw /etc/httpd/conf.d \
-    && chmod -R g+rw /etc/pki/tls/private \
-    && chmod -R g+rw /etc/pki/tls/certs \
     && chown -R default:root /var/run/shibboleth \
     && chown -R default:root /var/log/shibboleth \
     && chmod -R a+rw /var/run/shibboleth \
@@ -80,6 +77,7 @@ RUN chmod -R g+rx /opt/xmlsectool \
     && chmod g+rx /usr/local/bin/docker-bootstrap.sh \
     && chmod g+rx /usr/local/bin/metagen.sh
 
+RUN mkdir /etc/pki/tls/httpd && chmod -R g+rw /etc/pki/tls/httpd
 
 USER default
 
